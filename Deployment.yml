@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-azuredevops-deployment
+  name: my-spering-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: my-azuredevops
+      app: my-spering
   template:
     metadata:
       labels:
-        app: my-azuredevops
+        app: my-spering
     spec:
       containers:
-      - name: my-azuredevops
-        image: demaksac.azurecr.io/mounilebakstutorial:60
+      - name: my-spering
+        image: acrdem.azurecr.io/nagamouniksperingmain:20
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -24,12 +24,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-azuredevops-svc
+  name: my-spering-svc
 spec:
   selector:
-    app: my-azuredevops
+    app: my-spering
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: clusterIP
+  type: LoadBalancer
