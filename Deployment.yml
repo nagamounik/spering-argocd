@@ -1,0 +1,35 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-azuredevops-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-azuredevops
+  template:
+    metadata:
+      labels:
+        app: my-azuredevops
+    spec:
+      containers:
+      - name: my-azuredevops
+        image: demaksac.azurecr.io/mounilebakstutorial:60
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-azuredevops-svc
+spec:
+  selector:
+    app: my-azuredevops
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: clusterIP
